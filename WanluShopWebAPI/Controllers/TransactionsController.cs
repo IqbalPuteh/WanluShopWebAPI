@@ -42,12 +42,12 @@ namespace WanluShopWebAPI
         }
 
         [HttpGet("03-GetMonthlyTopTenItemSale")]
-        public IEnumerable<MonthlyTopItemSale> GetMonthlyTopTenItemSale(string strCity, string Month)
+        public IEnumerable<MonthlyTopItemSale> GetMonthlyTopTenItemSale(string strCity, string Month, string Year)
         {
             using (var Context = new WANLUSHOPWEBAPIDBWANLUCLOTHDBMDFContext())
             {
                 var queryOutletCity = (from Outlet in Context.MonthlyTopItemSales
-                                       where Outlet.OutletTown == strCity && Outlet.Month == Month
+                                       where Outlet.OutletTown == strCity && Outlet.Month == Month && Outlet.Year == Year
                                        orderby Outlet.Total descending
                                        select Outlet).Take(10);
 
@@ -56,12 +56,12 @@ namespace WanluShopWebAPI
         }
 
         [HttpGet("04-GetTop10MonthlyCusts")]
-        public IEnumerable<Top10MonthlyCust> GetTop10MonthlyCusts(string strCity, string Month)
+        public IEnumerable<Top10MonthlyCust> GetTop10MonthlyCusts(string strCity, string Month , string Year)
         {
             using (var Context = new WANLUSHOPWEBAPIDBWANLUCLOTHDBMDFContext())
             {
                 var queryTop10Customer = (from Cust in Context.Top10MonthlyCusts
-                                          where Cust.OutletTown == strCity && Cust.Month == Month
+                                          where Cust.OutletTown == strCity && Cust.Month == Month && Cust.Year == Year
                                           orderby Cust.Comm descending
                                           select Cust).Take(10);
 
