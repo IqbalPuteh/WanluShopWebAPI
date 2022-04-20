@@ -9,5 +9,6 @@ namespace WanluShopWebAPI.Models
         public string CustomerName { get; set; } = null!;
         public string? Month { get; set; }
         public string? Year { get; set; }
+        public string? OutletTown { get; set; }
     }
 }

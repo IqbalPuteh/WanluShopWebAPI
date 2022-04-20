@@ -199,19 +199,23 @@ namespace WanluShopWebAPI.Models
                     .HasMaxLength(10)
                     .HasColumnName("year")
                     .IsFixedLength();
+
+                entity.Property(e => e.OutletTown)
+                    .HasMaxLength(50)
+                    .HasColumnName("outletTown");
             });
 
             modelBuilder.Entity<Top5MonthlySalesItem>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("_Top5MonthlySalesItem");
+                entity.ToView("Top5MonthlySalesItem");
 
                 entity.Property(e => e.Diff).HasColumnName("diff");
 
-                entity.Property(e => e.ProdId)
+                entity.Property(e => e.ProductName)
                     .HasMaxLength(50)
-                    .HasColumnName("ProdID");
+                    .HasColumnName("productName");
             });
 
             modelBuilder.Entity<Transaction>(entity =>
