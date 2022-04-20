@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WanluShopWebAPI.Models;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace WanluShopWebAPI
 {
@@ -29,11 +29,15 @@ namespace WanluShopWebAPI
         }
 
         [HttpGet("02-GetCustomerFirstLast")]
-        public IEnumerable<CustomerFirstLast> GetCustomerFirstLast()
+        public IEnumerable<CustomerFirstLast> GetCustomerFirstLast(string strCity)
         {
             using (var Context = new WANLUSHOPWEBAPIDBWANLUCLOTHDBMDFContext())
             {
-                return Context.CustomerFirstLasts.ToList();
+                var CustomerFirstLast = from CustFirstLast in Context.CustomerFirstLasts
+                                        where CustFirstLast.OutletTown == strCity
+                                        select CustFirstLast;
+                
+                return CustomerFirstLast.ToList();
             }
         }
 
@@ -83,7 +87,7 @@ namespace WanluShopWebAPI
         {
             using (var Context = new WANLUSHOPWEBAPIDBWANLUCLOTHDBMDFContext())
             {
-                //return Context.Top5MonthlySalesItems.ToList();
+
                 var Top5MonthlySales = from Top5Monthly in Context.Top5MonthlySalesItems
                                        where Top5Monthly.Diff > 0
                                        orderby Top5Monthly.Diff descending
